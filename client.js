@@ -1,8 +1,12 @@
+//stretch stuff: error on empty inputs
+
 $(document).ready(readyNow);
 
 function readyNow() {
     //event listeners
     $('#submitButton').on('click', submitButton);
+    //delete listener
+    $('#tableBody').on('click', '.deleteButton', deleteButton);
 }
 
 function submitButton() {
@@ -12,13 +16,13 @@ function submitButton() {
     let employeeID = $('#employeeID').val();
     let title = $('#title').val();
     let annualSalary = $('#annualSalary').val();
-    $('#tableBody').append(`<tr>
+    $('#tableBody').append(`<tr class="employeeRow">
                     <td>${firstName}</td>
                     <td>${lastName}</td>
                     <td>${employeeID}</td>
                     <td>${title}</td>
                     <td>$${annualSalary}</td>
-                    <td><button>Delete</button></td>
+                    <td><button class="deleteButton">Delete</button></td>
                 </tr>`);
     $('#firstName').val('');
     $('#lastName').val('');
@@ -27,3 +31,7 @@ function submitButton() {
     $('#annualSalary').val('');
 }
 
+function deleteButton() {
+    console.log('DELETE');
+    $(this).parent().parent().remove();
+}
