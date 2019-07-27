@@ -40,8 +40,13 @@ function submitButton() {
 
 function deleteButton() {
     console.log('DELETE');
-    let sniffedRow = $(this).parent.text();
+    //go up to parents on the tr, find it's td nth child of 5, get the text
+    let sniffedRow = $(this).parents('tr').find('td:nth-child(5)').text();
     console.log(sniffedRow);
+    let toNumber = sniffedRow.slice(1);
+    console.log(toNumber);
+    totalSalary -= parseFloat(toNumber);
+    calculateMonthly();
     
     //need to go up 2 parents to remove the row. button, td, tr
     $(this).parent().parent().remove();
