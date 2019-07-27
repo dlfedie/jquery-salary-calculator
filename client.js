@@ -2,6 +2,11 @@
 //sortable table?
 
 $(document).ready(readyNow);
+$(document).keypress(function (event) {
+    if (event.key === "Enter") {
+        submitButton();
+    }
+}); //this works but I'm not sure if there are better ways to do this?
 
 let totalSalary = 0;
 
@@ -62,7 +67,8 @@ function deleteButton() {
     // console.log('DELETE');
     //go up to parents on the tr, find in the tds the nth child, in this case 5 because that's the $$ column, get the text
     let sniffedAnnualSalaryWithCommas = $(this).parents('tr').find('td:nth-child(5)').text();
-    let sniffedAnnualSalary = sniffedAnnualSalaryWithCommas.replace(',', ''); //get rid of commas
+    let sniffedAnnualSalary = sniffedAnnualSalaryWithCommas.replace(/,/g, ''); //get rid of commas. /, is to grab commas, /g is global, so it'll grab all (not just first) this only vaguely makes sense, why it's not (','/g, '')
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
     // console.log(sniffedAnnualSalary);
     let toNumber = sniffedAnnualSalary.slice(1);
     // console.log(toNumber);
