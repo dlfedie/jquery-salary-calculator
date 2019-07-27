@@ -1,5 +1,6 @@
 //stretch stuff: error on empty inputs
-//sortable table?
+//sortable table? barf. tried looking at bootstrap-table, and i just don't know what to import.
+//bottom table row to only show if there are actual rows? maybe do a check children of table and see if tbody exists?
 
 $(document).ready(readyNow);
 $(document).keypress(function (event) {
@@ -21,17 +22,17 @@ function submitButton() {
     // console.log('Clicked submit');
     if (!$('#firstName').val() || !$('#lastName').val() || !$('#employeeID').val() || !$('#title').val() || !$('#annualSalary').val()) {
         // console.log('Empty inputs!!'); //check if any input is empty
-        $('#helpfulTextToDOM').css('color', 'red'); //notification text to red
+        $('#helpfulTextToDOM').css('color', '#DC3545'); //notification text to red. Specifically the red of the bootstrap button style
         $('#helpfulTextToDOM').text('One or more fields are empty. Please enter valid inputs for each field.'); //notify user of empty fields.. possibly rename for user clarity
         return false; //end function
     } else if ($('#annualSalary').val() < 0) {
         //check if salary is positive
-        $('#helpfulTextToDOM').css('color', 'red'); //notification text to red
+        $('#helpfulTextToDOM').css('color', '#DC3545'); //notification text to red
         $('#helpfulTextToDOM').text('Annual Salary cannot be less than zero. Please enter a valid Annual Salary.'); //notify user of empty fields.. possibly rename for user clarity
         return false; //end function
     } else if ($('#employeeID').val() < 0) {
         //check if employee ID is positive
-        $('#helpfulTextToDOM').css('color', 'red'); //notification text to red
+        $('#helpfulTextToDOM').css('color', '#DC3545'); //notification text to red
         $('#helpfulTextToDOM').text('Employee ID cannot be less than zero. Please enter a valid Empolyee ID.'); //notify user of empty fields.. possibly rename for user clarity
         return false; //end function
     }
@@ -47,7 +48,7 @@ function submitButton() {
                                 <td>${employeeID}</td>
                                 <td>${title}</td>
                                 <td>$${annualSalary}</td>
-                                <td><button class="deleteButton">Delete</button></td>
+                                <td><button class="deleteButton btn btn-outline-secondary">Delete</button></td>
                             </tr>`);
     $('#firstName').val('');
     $('#lastName').val('');
@@ -57,7 +58,7 @@ function submitButton() {
     totalSalary += parseFloat(annualSalaryVal); //add this salary to total, use the non-comma version
     // console.log(totalSalary);
     $('#helpfulTextToDOM').empty(); //empty any previous message
-    $('#helpfulTextToDOM').css('color', 'green'); //switch to happy text color
+    $('#helpfulTextToDOM').css('color', '#28A745'); //switch to happy text color
     $('#helpfulTextToDOM').text(`Successfully added ${firstName} ${lastName}!`); //helpful message
 
     calculateMonthly();
@@ -68,7 +69,8 @@ function deleteButton() {
     //go up to parents on the tr, find in the tds the nth child, in this case 5 because that's the $$ column, get the text
     let sniffedAnnualSalaryWithCommas = $(this).parents('tr').find('td:nth-child(5)').text();
     let sniffedAnnualSalary = sniffedAnnualSalaryWithCommas.replace(/,/g, ''); //get rid of commas. /, is to grab commas, /g is global, so it'll grab all (not just first) this only vaguely makes sense, why it's not (','/g, '')
-    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace 
+    //https://stackoverflow.com/questions/5788741/remove-commas-from-the-string-using-javascript
     // console.log(sniffedAnnualSalary);
     let toNumber = sniffedAnnualSalary.slice(1);
     // console.log(toNumber);
@@ -91,9 +93,11 @@ function calculateMonthly() {
     let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals
     let monthlyToDOM = parseFloat(monthlyToDecimal).toLocaleString();
     if (monthly > 20000) {
-        $('#totalMonthly').css('background-color', 'red'); //set background to red
+        $('#totalMonthly').css('background-color', '#DC3545'); //set background to red, bootstrap style
+        $('#totalMonthly').css('color', 'white'); //set text to white, bootstrap style
     } else if (monthly <= 20000) {
         $('#totalMonthly').css('background-color', 'initial'); //return background to initial
+        $('#totalMonthly').css('color', 'initial'); //return text color to initial
     }
     // console.log(monthly);
     $('#monthly').text(monthlyToDOM);

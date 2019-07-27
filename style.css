@@ -3,6 +3,10 @@
     display: inline-flexbox;
 }
 
+.blankRow {
+    height: 24px !important;
+}
+
 /* body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 } */
