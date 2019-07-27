@@ -34,7 +34,8 @@ function submitButton() {
     let lastName = $('#lastName').val();
     let employeeID = $('#employeeID').val();
     let title = $('#title').val();
-    let annualSalary = $('#annualSalary').val();
+    let annualSalaryVal = $('#annualSalary').val(); //grab the full number
+    let annualSalary = parseFloat(annualSalaryVal).toLocaleString(); //add some commas
     $('#tableBody').append(`<tr class="employeeRow">
                                 <td>${firstName}</td>
                                 <td>${lastName}</td>
@@ -48,7 +49,7 @@ function submitButton() {
     $('#employeeID').val('');
     $('#title').val('');
     $('#annualSalary').val('');
-    totalSalary += parseFloat(annualSalary); //add this salary to total
+    totalSalary += parseFloat(annualSalaryVal); //add this salary to total, use the non-comma version
     // console.log(totalSalary);
     $('#helpfulTextToDOM').empty(); //empty any previous message
     $('#helpfulTextToDOM').css('color', 'green'); //switch to happy text color
@@ -60,7 +61,8 @@ function submitButton() {
 function deleteButton() {
     // console.log('DELETE');
     //go up to parents on the tr, find in the tds the nth child, in this case 5 because that's the $$ column, get the text
-    let sniffedAnnualSalary = $(this).parents('tr').find('td:nth-child(5)').text();
+    let sniffedAnnualSalaryWithCommas = $(this).parents('tr').find('td:nth-child(5)').text();
+    let sniffedAnnualSalary = sniffedAnnualSalaryWithCommas.replace(',', ''); //get rid of commas
     // console.log(sniffedAnnualSalary);
     let toNumber = sniffedAnnualSalary.slice(1);
     // console.log(toNumber);
@@ -68,7 +70,7 @@ function deleteButton() {
     let sniffedLastName = $(this).parents('tr').find('td:nth-child(2)').text(); //grab last name for message
 
     $('#helpfulTextToDOM').empty(); //empty any previous message
-    $('#helpfulTextToDOM').css('color', 'initial'); //switch to medium, business-like text color
+    $('#helpfulTextToDOM').css('color', 'initial'); //switch to blasé, business-like text color
     $('#helpfulTextToDOM').text(`Successfully removed ${sniffedFirstName} ${sniffedLastName}.`); //helpful message
     totalSalary -= parseFloat(toNumber);
     calculateMonthly();
@@ -80,7 +82,8 @@ function deleteButton() {
 function calculateMonthly() {
     //take totalSalary and dived by 12 to get monthly
     let monthly = totalSalary / 12;
-    let monthlyToDOM = monthly.toFixed(2); //give only to 2 decimals
+    let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals
+    let monthlyToDOM = parseFloat(monthlyToDecimal).toLocaleString();
     if (monthly > 20000) {
         $('#totalMonthly').css('background-color', 'red'); //set background to red
     } else if (monthly <= 20000) {

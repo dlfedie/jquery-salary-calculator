@@ -25,15 +25,15 @@
     </header>
     <main class="container">
         <h4>Add Employee</h4>
-        <div>
+        <div class="m-3">
             <div class="input-group">
                 <input class="form-control inputs" type="text" id="firstName" placeholder="First Name" required />
                 <input class="form-control inputs" type="text" id="lastName" placeholder="Last Name" />
                 <input class="form-control inputs" type="number" id="employeeID" placeholder="ID" />
                 <input class="form-control inputs" type="text" id="title" placeholder="Title" />
-                <input class="form-control inputs" type="number" id="annualSalary" placeholder="Annual Salary" />
+                <input class="form-control inputs" type="number" lang="en-150" id="annualSalary" placeholder="Annual Salary" />
             </div>
-            <div>
+            <div class="float-right m-3 row">
                 <button id="submitButton" class="btn btn-outline-primary">Submit</button>
             </div>
         </div>
@@ -42,42 +42,29 @@
         </div>
     </main>
     <section class="container">
-        <h4>Employees</h4>
-        <table class="table table-striped table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Annual Salary</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="tableBody">
-                <!-- <tr class="employeeRow">
-                    <td>Dust</td>
-                    <td>Fedie</td>
-                    <td>1234</td>
-                    <td>Dude</td>
-                    <td>$1,000,000</td>
-                    <td><button>Delete</button></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td> -->
-                <!-- </tr> -->
-            </tbody>
-        </table>
-        <div id="monthlyEl">
-            <h4 class="text-right"><span id="totalMonthly">Total Monthly: $<span id="monthly">0</span></span></h4>
+        <div>
+            <h4>Employees</h4>
+            <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Annual Salary</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- table data to go here -->
+                </tbody>
+            </table>
+            <div id="monthlyEl">
+                <h4 class="text-right"><span id="totalMonthly">Total Monthly: $<span id="monthly">0</span></span></h4>
+            </div>
         </div>
     </section>
-    <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+    <!-- <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script> -->
 </body>
 
 </html>
