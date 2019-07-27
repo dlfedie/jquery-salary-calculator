@@ -13,7 +13,23 @@ function readyNow() {
 }
 
 function submitButton() {
-    console.log('Clicked submit');
+    // console.log('Clicked submit');
+    if (!$('#firstName').val() || !$('#lastName').val() || !$('#employeeID').val() || !$('#title').val() || !$('#annualSalary').val()) {
+        // console.log('Empty inputs!!'); //check if any input is empty
+        $('#helpfulTextToDOM').css('color', 'red'); //notification text to red
+        $('#helpfulTextToDOM').text('One or more fields are empty. Please enter valid inputs for each field.'); //notify user of empty fields.. possibly rename for user clarity
+        return false; //end function
+    } else if ($('#annualSalary').val() < 0) {
+        //check if salary is positive
+        $('#helpfulTextToDOM').css('color', 'red'); //notification text to red
+        $('#helpfulTextToDOM').text('Annual Salary cannot be less than zero. Please enter a valid Annual Salary.'); //notify user of empty fields.. possibly rename for user clarity
+        return false; //end function
+    } else if ($('#employeeID').val() < 0) {
+        //check if employee ID is positive
+        $('#helpfulTextToDOM').css('color', 'red'); //notification text to red
+        $('#helpfulTextToDOM').text('Employee ID cannot be less than zero. Please enter a valid Empolyee ID.'); //notify user of empty fields.. possibly rename for user clarity
+        return false; //end function
+    }
     let firstName = $('#firstName').val();
     let lastName = $('#lastName').val();
     let employeeID = $('#employeeID').val();
@@ -33,18 +49,27 @@ function submitButton() {
     $('#title').val('');
     $('#annualSalary').val('');
     totalSalary += parseFloat(annualSalary); //add this salary to total
-    console.log(totalSalary);
-    
+    // console.log(totalSalary);
+    $('#helpfulTextToDOM').empty(); //empty any previous message
+    $('#helpfulTextToDOM').css('color', 'green'); //switch to happy text color
+    $('#helpfulTextToDOM').text(`Successfully added ${firstName} ${lastName}!`); //helpful message
+
     calculateMonthly();
 }
 
 function deleteButton() {
-    console.log('DELETE');
+    // console.log('DELETE');
     //go up to parents on the tr, find in the tds the nth child, in this case 5 because that's the $$ column, get the text
-    let sniffedRow = $(this).parents('tr').find('td:nth-child(5)').text();
-    console.log(sniffedRow);
-    let toNumber = sniffedRow.slice(1);
-    console.log(toNumber);
+    let sniffedAnnualSalary = $(this).parents('tr').find('td:nth-child(5)').text();
+    // console.log(sniffedAnnualSalary);
+    let toNumber = sniffedAnnualSalary.slice(1);
+    // console.log(toNumber);
+    let sniffedFirstName = $(this).parents('tr').find('td:nth-child(1)').text(); //grab first name for message
+    let sniffedLastName = $(this).parents('tr').find('td:nth-child(2)').text(); //grab last name for message
+
+    $('#helpfulTextToDOM').empty(); //empty any previous message
+    $('#helpfulTextToDOM').css('color', 'initial'); //switch to medium, business-like text color
+    $('#helpfulTextToDOM').text(`Successfully removed ${sniffedFirstName} ${sniffedLastName}.`); //helpful message
     totalSalary -= parseFloat(toNumber);
     calculateMonthly();
     
@@ -55,11 +80,12 @@ function deleteButton() {
 function calculateMonthly() {
     //take totalSalary and dived by 12 to get monthly
     let monthly = totalSalary / 12;
+    let monthlyToDOM = monthly.toFixed(2); //give only to 2 decimals
     if (monthly > 20000) {
         $('#totalMonthly').css('background-color', 'red'); //set background to red
     } else if (monthly <= 20000) {
         $('#totalMonthly').css('background-color', 'initial'); //return background to initial
     }
-    console.log(monthly);
-    $('#monthly').text(monthly);
+    // console.log(monthly);
+    $('#monthly').text(monthlyToDOM);
 }
