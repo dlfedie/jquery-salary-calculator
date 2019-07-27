@@ -24,7 +24,7 @@ function submitButton() {
                                 <td>${lastName}</td>
                                 <td>${employeeID}</td>
                                 <td>${title}</td>
-                                <td class="annualSalary">$${annualSalary}</td>
+                                <td>$${annualSalary}</td>
                                 <td><button class="deleteButton">Delete</button></td>
                             </tr>`);
     $('#firstName').val('');
@@ -40,7 +40,7 @@ function submitButton() {
 
 function deleteButton() {
     console.log('DELETE');
-    //go up to parents on the tr, find it's td nth child of 5, get the text
+    //go up to parents on the tr, find in the tds the nth child, in this case 5 because that's the $$ column, get the text
     let sniffedRow = $(this).parents('tr').find('td:nth-child(5)').text();
     console.log(sniffedRow);
     let toNumber = sniffedRow.slice(1);
@@ -56,7 +56,9 @@ function calculateMonthly() {
     //take totalSalary and dived by 12 to get monthly
     let monthly = totalSalary / 12;
     if (monthly > 20000) {
-        $('#monthlyEl').css('background-color', 'red')
+        $('#totalMonthly').css('background-color', 'red'); //set background to red
+    } else if (monthly <= 20000) {
+        $('#totalMonthly').css('background-color', 'initial'); //return background to initial
     }
     console.log(monthly);
     $('#monthly').text(monthly);
