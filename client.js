@@ -1,6 +1,9 @@
 //stretch stuff: error on empty inputs
+//sortable table?
 
 $(document).ready(readyNow);
+
+let totalSalary = 0;
 
 function readyNow() {
     //event listeners
@@ -17,21 +20,39 @@ function submitButton() {
     let title = $('#title').val();
     let annualSalary = $('#annualSalary').val();
     $('#tableBody').append(`<tr class="employeeRow">
-                    <td>${firstName}</td>
-                    <td>${lastName}</td>
-                    <td>${employeeID}</td>
-                    <td>${title}</td>
-                    <td>$${annualSalary}</td>
-                    <td><button class="deleteButton">Delete</button></td>
-                </tr>`);
+                                <td>${firstName}</td>
+                                <td>${lastName}</td>
+                                <td>${employeeID}</td>
+                                <td>${title}</td>
+                                <td class="annualSalary">$${annualSalary}</td>
+                                <td><button class="deleteButton">Delete</button></td>
+                            </tr>`);
     $('#firstName').val('');
     $('#lastName').val('');
     $('#employeeID').val('');
     $('#title').val('');
     $('#annualSalary').val('');
+    totalSalary += parseFloat(annualSalary); //add this salary to total
+    console.log(totalSalary);
+    
+    calculateMonthly();
 }
 
 function deleteButton() {
     console.log('DELETE');
+    let sniffedRow = $(this).parent.text();
+    console.log(sniffedRow);
+    
+    //need to go up 2 parents to remove the row. button, td, tr
     $(this).parent().parent().remove();
+}
+
+function calculateMonthly() {
+    //take totalSalary and dived by 12 to get monthly
+    let monthly = totalSalary / 12;
+    if (monthly > 20000) {
+        $('#monthlyEl').css('background-color', 'red')
+    }
+    console.log(monthly);
+    $('#monthly').text(monthly);
 }
