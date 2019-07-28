@@ -67,12 +67,13 @@ function submitButton() {
 function deleteButton() {
     // console.log('DELETE');
     //go up to parents on the tr, find in the tds the nth child, in this case 5 because that's the $$ column, get the text
+    //https://stackoverflow.com/questions/14460421/get-the-contents-of-a-table-row-with-a-button-click
     let sniffedAnnualSalaryWithCommas = $(this).parents('tr').find('td:nth-child(5)').text();
-    let sniffedAnnualSalary = sniffedAnnualSalaryWithCommas.replace(/,/g, ''); //get rid of commas. /, is to grab commas, /g is global, so it'll grab all (not just first) this only vaguely makes sense, why it's not (','/g, '')
+    let sniffedAnnualSalary = sniffedAnnualSalaryWithCommas.replace(/,/g, '').slice(1); //get rid of commas. /, is to grab commas, /g is global, so it'll grab all (not just first) this only vaguely makes sense, why it's not (','/g, '')
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace 
     //https://stackoverflow.com/questions/5788741/remove-commas-from-the-string-using-javascript
     // console.log(sniffedAnnualSalary);
-    let toNumber = sniffedAnnualSalary.slice(1);
+    // let toNumber = sniffedAnnualSalary.slice(1); //moved this up to the end of the remove commas part. Success!
     // console.log(toNumber);
     let sniffedFirstName = $(this).parents('tr').find('td:nth-child(1)').text(); //grab first name for message
     let sniffedLastName = $(this).parents('tr').find('td:nth-child(2)').text(); //grab last name for message
@@ -80,7 +81,7 @@ function deleteButton() {
     $('#helpfulTextToDOM').empty(); //empty any previous message
     $('#helpfulTextToDOM').css('color', 'initial'); //switch to blasé, business-like text color
     $('#helpfulTextToDOM').text(`Successfully removed ${sniffedFirstName} ${sniffedLastName}.`); //helpful message
-    totalSalary -= parseFloat(toNumber);
+    totalSalary -= parseFloat(sniffedAnnualSalary);
     calculateMonthly();
     
     //need to go up 2 parents to remove the row. button, td, tr
@@ -90,8 +91,8 @@ function deleteButton() {
 function calculateMonthly() {
     //take totalSalary and dived by 12 to get monthly
     let monthly = totalSalary / 12;
-    let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals
-    let monthlyToDOM = parseFloat(monthlyToDecimal).toLocaleString();
+    // let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals //used this to conceptualize all that needed to be done. Made it smoother by combining it into one.
+    let monthlyToDOM = parseFloat(monthly.toFixed(2)).toLocaleString();
     if (monthly > 20000) {
         $('#totalMonthly').css('background-color', '#DC3545'); //set background to red, bootstrap style
         $('#totalMonthly').css('color', 'white'); //set text to white, bootstrap style
