@@ -1,4 +1,5 @@
 //stretch stuff: error on empty inputs
+//CHECK THE ADD CLASSES THING AND SEE IF I CAN DO MULTIPLE
 //sortable table? barf. tried looking at bootstrap-table, and i just don't know what to import.
 //bottom table row to only show if there are actual rows? maybe do a check children of table and see if tbody exists?
 
@@ -22,17 +23,17 @@ function submitButton() {
     // console.log('Clicked submit');
     if (!$('#firstName').val() || !$('#lastName').val() || !$('#employeeID').val() || !$('#title').val() || !$('#annualSalary').val()) {
         // console.log('Empty inputs!!'); //check if any input is empty
-        $('#helpfulTextToDOM').css('color', '#DC3545'); //notification text to red. Specifically the red of the bootstrap button style
+        $('#helpfulTextToDOM').addClass('text-danger'); //notification text to red. Specifically the red of the bootstrap button style
         $('#helpfulTextToDOM').text('One or more fields are empty. Please enter valid inputs for each field.'); //notify user of empty fields.. possibly rename for user clarity
         return false; //end function
     } else if ($('#annualSalary').val() < 0) {
         //check if salary is positive
-        $('#helpfulTextToDOM').css('color', '#DC3545'); //notification text to red
+        $('#helpfulTextToDOM').addClass('text-danger'); //notification text to red
         $('#helpfulTextToDOM').text('Annual Salary cannot be less than zero. Please enter a valid Annual Salary.'); //notify user of empty fields.. possibly rename for user clarity
         return false; //end function
     } else if ($('#employeeID').val() < 0) {
         //check if employee ID is positive
-        $('#helpfulTextToDOM').css('color', '#DC3545'); //notification text to red
+        $('#helpfulTextToDOM').addClass('text-danger'); //notification text to red
         $('#helpfulTextToDOM').text('Employee ID cannot be less than zero. Please enter a valid Empolyee ID.'); //notify user of empty fields.. possibly rename for user clarity
         return false; //end function
     }
@@ -58,7 +59,8 @@ function submitButton() {
     totalSalary += parseFloat(annualSalaryVal); //add this salary to total, use the non-comma version
     // console.log(totalSalary);
     $('#helpfulTextToDOM').empty(); //empty any previous message
-    $('#helpfulTextToDOM').css('color', '#28A745'); //switch to happy text color
+    $('#helpfulTextToDOM').removeClass('text-danger');
+    $('#helpfulTextToDOM').addClass('text-success'); //switch to happy text color
     $('#helpfulTextToDOM').text(`Successfully added ${firstName} ${lastName}!`); //helpful message
 
     calculateMonthly();
@@ -79,7 +81,8 @@ function deleteButton() {
     let sniffedLastName = $(this).parents('tr').find('td:nth-child(2)').text(); //grab last name for message
 
     $('#helpfulTextToDOM').empty(); //empty any previous message
-    $('#helpfulTextToDOM').css('color', 'initial'); //switch to blasé, business-like text color
+    $('#helpfulTextToDOM').removeClass('text-danger text-success'); //switch to blasé, business-like text color
+    // $('#helpfulTextToDOM').removeClass('text-success'); //switch to blasé, business-like text color
     $('#helpfulTextToDOM').text(`Successfully removed ${sniffedFirstName} ${sniffedLastName}.`); //helpful message
     totalSalary -= parseFloat(sniffedAnnualSalary);
     calculateMonthly();
@@ -94,11 +97,11 @@ function calculateMonthly() {
     // let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals //used this to conceptualize all that needed to be done. Made it smoother by combining it into one.
     let monthlyToDOM = parseFloat(monthly.toFixed(2)).toLocaleString();
     if (monthly > 20000) {
-        $('#totalMonthly').css('background-color', '#DC3545'); //set background to red, bootstrap style
-        $('#totalMonthly').css('color', 'white'); //set text to white, bootstrap style
+        $('#totalMonthly').addClass('bg-danger text-light'); //set background to red, bootstrap style
+        // $('#totalMonthly').addClass('text-light'); //set text to white, bootstrap style
     } else if (monthly <= 20000) {
-        $('#totalMonthly').css('background-color', 'initial'); //return background to initial
-        $('#totalMonthly').css('color', 'initial'); //return text color to initial
+        $('#totalMonthly').removeClass('bg-danger text-light'); //return background to initial
+        // $('#totalMonthly').removeClass('text-light'); //return text color to initial
     }
     // console.log(monthly);
     $('#monthly').text(monthlyToDOM);

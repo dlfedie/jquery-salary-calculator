@@ -20,7 +20,7 @@
 
 <body class="container">
     <header>
-        <div class="jumbotron">
+        <div class="jumbotron bg-info container">
             <h1 class="text-center">Salary Calculator</h1>
         </div>
     </header>
@@ -35,12 +35,14 @@
                 <input class="form-control inputs" type="number" lang="en-150" id="annualSalary"
                     placeholder="Annual Salary" />
             </div>
-            <div class="float-right m-3 row">
-                <button id="submitButton" class="btn btn-outline-primary">Submit</button>
+            <div class="row container-fluid">
+                <div class="float-right">
+                    <button id="submitButton" class="btn btn-outline-primary m-3">Submit</button>
+                </div>
             </div>
         </div>
         <div>
-            <h5 class="text-center" id="helpfulTextToDOM"></h5>
+            <h5 class="text-center container" id="helpfulTextToDOM"></h5>
         </div>
     </main>
     <section class="container">
@@ -63,7 +65,7 @@
                     </tbody>
                     <thead class="blankRow thead-light">
                         <tr>
-                            <th colspan="6">  </th>
+                            <th colspan="6"> </th>
                             <!-- blank table header as a footer; mainly because tfoot doesn't provide style options. -->
                         </tr>
                     </thead>
