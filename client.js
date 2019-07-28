@@ -1,5 +1,5 @@
-//stretch stuff: error on empty inputs
-//CHECK THE ADD CLASSES THING AND SEE IF I CAN DO MULTIPLE
+//stretch stuff: error on empty inputs - done
+//TOASTS - haha, not this week.
 //sortable table? barf. tried looking at bootstrap-table, and i just don't know what to import.
 //bottom table row to only show if there are actual rows? maybe do a check children of table and see if tbody exists?
 
@@ -42,13 +42,18 @@ function submitButton() {
     let employeeID = $('#employeeID').val();
     let title = $('#title').val();
     let annualSalaryVal = $('#annualSalary').val(); //grab the full number
-    let annualSalary = parseFloat(annualSalaryVal).toLocaleString(); //add some commas
+    // let annualSalaryDec = parseFloat(annualSalaryVal).toFixed(2); // make it look like money
+    // console.log(annualSalaryDec);
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
+    let annualSalaryDOM = parseFloat(annualSalaryVal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); //add some commas
+    // console.log(annualSalaryDOM);
+    
     $('#tableBody').append(`<tr class="employeeRow">
                                 <td>${firstName}</td>
                                 <td>${lastName}</td>
                                 <td>${employeeID}</td>
                                 <td>${title}</td>
-                                <td>$${annualSalary}</td>
+                                <td>$${annualSalaryDOM}</td>
                                 <td><button class="deleteButton btn btn-outline-secondary">Delete</button></td>
                             </tr>`);
     $('#firstName').val('');
@@ -95,7 +100,11 @@ function calculateMonthly() {
     //take totalSalary and dived by 12 to get monthly
     let monthly = totalSalary / 12;
     // let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals //used this to conceptualize all that needed to be done. Made it smoother by combining it into one.
-    let monthlyToDOM = parseFloat(monthly.toFixed(2)).toLocaleString();
+    // console.log(monthlyToDecimal);
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
+    let monthlyToDOM = monthly.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // console.log(monthlyToDOM);
+    
     if (monthly > 20000) {
         $('#totalMonthly').addClass('bg-danger text-light'); //set background to red, bootstrap style
         // $('#totalMonthly').addClass('text-light'); //set text to white, bootstrap style
@@ -106,3 +115,5 @@ function calculateMonthly() {
     // console.log(monthly);
     $('#monthly').text(monthlyToDOM);
 }
+
+// $('.toast').toast(data-delay); //whelp, not going to worry about toasts, methinks. I'll do more css
