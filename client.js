@@ -45,7 +45,7 @@ function submitButton() {
     // let annualSalaryDec = parseFloat(annualSalaryVal).toFixed(2); // make it look like money
     // console.log(annualSalaryDec);
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
-    let annualSalaryDOM = parseFloat(annualSalaryVal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); //add some commas
+    let annualSalaryDOM = parseFloat(annualSalaryVal).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }); //add some commas, NO DECIMALS, FINANCE DEPT. PAY THEM THEIR EXTRA .99 IF YOU NEED.
     // console.log(annualSalaryDOM);
     
     $('#tableBody').append(`<tr class="employeeRow">
