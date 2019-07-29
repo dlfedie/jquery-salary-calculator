@@ -1,7 +1,7 @@
 //stretch stuff: error on empty inputs - done
 //TOASTS - haha, not this week.
 //sortable table? barf. tried looking at bootstrap-table, and i just don't know what to import.
-//bottom table row to only show if there are actual rows? maybe do a check children of table and see if tbody exists?
+//bottom table row to only show if there are actual rows? maybe do a check children of table and see if tbody exists? - MAYBE DESIGNER SAYS NO BECAUSE IT LOOKS BETTER ANYWAYS/PRODUCT NEEDS TO SHIP
 
 $(document).ready(readyNow);
 $(document).keypress(function (event) {
@@ -56,11 +56,12 @@ function submitButton() {
                                 <td>$${annualSalaryDOM}</td>
                                 <td><button class="deleteButton btn btn-outline-secondary">Delete</button></td>
                             </tr>`);
-    $('#firstName').val('');
-    $('#lastName').val('');
-    $('#employeeID').val('');
-    $('#title').val('');
-    $('#annualSalary').val('');
+    // $('#firstName').val('');
+    // $('#lastName').val('');
+    // $('#employeeID').val('');
+    // $('#title').val('');
+    // $('#annualSalary').val('');
+    $('.inputs').val(''); //well shoot, that saves us some lines of code now, don't it??
     totalSalary += parseFloat(annualSalaryVal); //add this salary to total, use the non-comma version
     // console.log(totalSalary);
     $('#helpfulTextToDOM').empty(); //empty any previous message
@@ -99,10 +100,10 @@ function deleteButton() {
 function calculateMonthly() {
     //take totalSalary and dived by 12 to get monthly
     let monthly = totalSalary / 12;
-    // let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals //used this to conceptualize all that needed to be done. Made it smoother by combining it into one.
-    // console.log(monthlyToDecimal);
+    // let monthlyToDecimal = monthly.toFixed(2); //give only to 2 decimals //used this to conceptualize all that needed to be done. 
+    // console.log(monthlyToDecimal); //ok, i misread the toLocaleString, and was fighting changing decimals to strings to numbers.. turns out it's much easier than I originally thought.
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
-    let monthlyToDOM = monthly.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    let monthlyToDOM = monthly.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }); //AHA FINALLY VICTORY.
     // console.log(monthlyToDOM);
     
     if (monthly > 20000) {
