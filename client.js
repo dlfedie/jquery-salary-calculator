@@ -69,6 +69,9 @@ function submitButton() {
     $('#helpfulTextToDOM').addClass('text-success'); //switch to happy text color
     $('#helpfulTextToDOM').text(`Successfully added ${firstName} ${lastName}!`); //helpful message
 
+    //feedback from Kris. I did think of this, but forgot to look into it. Nice UX enhancement.
+    $('#firstName').focus();
+
     calculateMonthly();
 }
 
